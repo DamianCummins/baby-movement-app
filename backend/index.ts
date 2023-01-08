@@ -1,6 +1,8 @@
 import express, { Express, json, Request, Response } from 'express';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
 import dotenv from 'dotenv';
 import path from 'path';
+const creds = require('./config.json');
 
 dotenv.config();
 
@@ -9,9 +11,21 @@ const port = process.env.PORT;
 
 app.use(json());
 
-app.post('/api/v1/movement', (req, res, next) => {
+app.post('/api/v1/movement', async (req, res, next) => {
   const data = req.body;
   console.log(data);
+
+  const doc = new GoogleSpreadsheet('1JflNS-6HDPdMXUcatkYw_qa0wY8C-dwcM7lYZThfNQQ');
+  
+  // Authentication
+  await doc.useServiceAccountAuth(creds); 
+  await doc.loadInfo();
+  console.log(doc.title);
+
+  const sheet = doc.sheetsByIndex[0];
+  const newRow = await sheet.addRow(data);
+  console.log(newRow);
+
   return res.sendStatus(200);
 });
 
