@@ -70,24 +70,28 @@ export default function App() {
       <form onSubmit={handleSubmit}>
         <div className="sliderInput">
           <FormLabel>Intensity:</FormLabel>
-          <Slider 
-            size="medium"
-            max={2}
-            onChange={(evt, value) => value && setIntensity(intensityValues[value as number].label)}
-            value={intensityValues.findIndex(option => option.label === intensity)}
-            marks={intensityValues}
-          />
+          <div className='sliderContainer'>
+            <Slider 
+              size="medium"
+              max={2}
+              onChange={(evt, value) => value && setIntensity(intensityValues[value as number].label)}
+              value={intensityValues.findIndex(option => option.label === intensity)}
+              marks={intensityValues}
+            />
+          </div>
         </div>
 
         <div className="sliderInput">
           <FormLabel>Frequency:</FormLabel>
-          <Slider 
-            size="medium"
-            max={2}
-            onChange={(evt, value) => value && setFrequency(frequencyValues[value as number].label)}
-            value={frequencyValues.findIndex(option => option.label === frequency)}
-            marks={frequencyValues}
-          />
+          <div className='sliderContainer'>
+            <Slider 
+              size="medium"
+              max={2}
+              onChange={(evt, value) => value && setFrequency(frequencyValues[value as number].label)}
+              value={frequencyValues.findIndex(option => option.label === frequency)}
+              marks={frequencyValues}
+            />
+          </div>
         </div>
 
         <div className="typeInput">

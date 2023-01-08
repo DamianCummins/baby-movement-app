@@ -5,12 +5,9 @@
   align-items: center;
 }
 
-form {
-  width: 400px;
-}
-
 .Submit {
   width: 300px;
+  margin-bottom: 20px;
 }
 
 .positionInput, .sliderInput, .typeInput  {
@@ -22,6 +19,11 @@ form {
   margin-right: 20px;
 }
 
+.sliderContainer {
+  margin:auto;
+  width: 80%;
+}
+
 .movementTypes {
   display: flex;
   flex-direction: row;
@@ -31,13 +33,13 @@ form {
 }
 
 .movementType {
-  width: 110px;
+  width: 90px;
   background-color: #CCCCCC !important;
   color: black !important;
 }
 
 .chosen {
   background-color: rgb(25, 118, 210) !important;
-  color: white !important;
+  color: white;
 }
 
