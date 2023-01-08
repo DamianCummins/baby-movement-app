@@ -1,0 +1,14 @@
+.grid {
+    margin: 10px;
+}
+
+.grid>*>button {
+    width: 110px;
+    height: 110px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: rgb(25, 118, 210);
+    color: white;
+}
