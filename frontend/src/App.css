@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+form {
+  margin-bottom: 60px;
+}
+
 .Submit {
   width: 300px;
   margin-bottom: 20px;
