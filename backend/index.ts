@@ -71,6 +71,11 @@ app.get('/api/v1/movement', async (req, res, next) => {
   return res.status(200).send(grouped);
 });
 
+app.use(function(req, res, next) {
+  req.headers['if-none-match'] = 'no-match-for-this';
+  next();    
+});
+
 // Set the static files directory
 const frontendBuildDir = process.env.NODE_ENV === 'development' ? '/dist/frontend' : '/frontend';
 app.use('/', express.static(path.resolve(`${__dirname}${frontendBuildDir}`)));
