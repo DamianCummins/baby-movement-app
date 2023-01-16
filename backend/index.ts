@@ -9,24 +9,66 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
+type Row = {
+  date: string,
+  time: string,
+  intensity: string,
+  type: string,
+  position: string
+}
+
 app.use(json());
 
 app.post('/api/v1/movement', async (req, res, next) => {
   const data = req.body;
-  console.log(data);
 
   const doc = new GoogleSpreadsheet('1JflNS-6HDPdMXUcatkYw_qa0wY8C-dwcM7lYZThfNQQ');
   
   // Authentication
   await doc.useServiceAccountAuth(creds); 
   await doc.loadInfo();
-  console.log(doc.title);
 
   const sheet = doc.sheetsByIndex[0];
   const newRow = await sheet.addRow(data);
-  console.log(newRow);
 
   return res.sendStatus(200);
+});
+
+app.get('/api/v1/movement', async (req, res, next) => {
+
+  const doc = new GoogleSpreadsheet('1JflNS-6HDPdMXUcatkYw_qa0wY8C-dwcM7lYZThfNQQ');
+  
+  // Authentication
+  await doc.useServiceAccountAuth(creds); 
+  await doc.loadInfo();
+
+  const sheet = doc.sheetsByIndex[0];
+  const rows = await sheet.getRows();
+  
+  const now = new Date();
+  const start = now.getDate() - now.getDay() - 6;  
+  const startDate = new Date(now.setDate(start));
+  const filtered = rows.filter(row => new Date(row.date) > startDate).map(({date, time, intensity, type, position}) => ({
+    date, time, intensity, type, position
+  })).sort((a: Row, b: Row) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const grouped = filtered.reduce((acc: Record<string, Pick<Row, Exclude<keyof Row, Row['date']>>[]>, {date, time, intensity, type, position}: Row) => {
+    (acc[date] = acc[date] || []).push({time, intensity, type, position,});
+    return acc;
+  }, {});
+
+  let dayCount = 0;
+
+  while (dayCount <= 7) {
+    const date = now.getDate() - now.getDay() + dayCount;
+    const dateString = new Date(now.setDate((date))).toDateString();
+    if (!Object.keys(grouped).includes(dateString)) {
+      grouped[dateString] = [];
+    }
+    dayCount = dayCount + 1;
+  }
+
+  return res.status(200).send(grouped);
 });
 
 // Set the static files directory

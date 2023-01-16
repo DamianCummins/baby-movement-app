@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ButtonGrid.css';
 
 type Props = {

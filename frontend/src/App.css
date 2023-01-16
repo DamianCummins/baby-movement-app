@@ -28,6 +28,7 @@ form {
   width: 80%;
 }
 
+
 .movementTypes {
   display: flex;
   flex-direction: row;
@@ -43,7 +44,6 @@ form {
 }
 
 .chosen {
-  background-color: rgb(25, 118, 210) !important;
+  background-color: #8884d8 !important;
   color: white;
 }
-
