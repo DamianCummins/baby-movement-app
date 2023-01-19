@@ -60,8 +60,9 @@ app.get('/api/v1/movement', async (req, res, next) => {
   let dayCount = 0;
 
   while (dayCount <= 7) {
-    const date = now.getDate() - now.getDay() + dayCount;
+    const date = now.getDate() + 1;
     const dateString = new Date(now.setDate((date))).toDateString();
+    console.log(dateString);
     if (!Object.keys(grouped).includes(dateString)) {
       grouped[dateString] = [];
     }

@@ -14,11 +14,11 @@ form {
   margin-bottom: 20px;
 }
 
-.positionInput, .sliderInput, .typeInput  {
+.positionInput, .sliderInput, .typeInput, .dateInput  {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -26,6 +26,10 @@ form {
 .sliderContainer {
   margin:auto;
   width: 80%;
+}
+
+.datePickerContainer {
+  width: 100%;
 }
 
 

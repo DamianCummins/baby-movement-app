@@ -21,6 +21,10 @@ export default function App() {
     {
       value: 2,
       label: 'strong'
+    },
+    {
+      value: 3,
+      label: 'ouch'
     }
   ];
 
@@ -76,12 +80,13 @@ export default function App() {
     setFrequency(frequencyValues[0].label);
     setType('');
     setPosition('');
+    setDate(new Date());
   }  
 
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <h1>Baby Movement App</h1>
+        <h2>Baby Movement App</h2>
         <div className="content">
           {
             content === 0 ? 
@@ -91,8 +96,8 @@ export default function App() {
                   <div className='sliderContainer'>
                     <Slider 
                       size="medium"
-                      max={2}
-                      onChange={(evt, value) => value && setIntensity(intensityValues[value as number].label)}
+                      max={3}
+                      onChange={(evt, value) => value !== undefined && setIntensity(intensityValues[value as number].label)}
                       value={intensityValues.findIndex(option => option.label === intensity)}
                       marks={intensityValues}
                     />
@@ -105,7 +110,7 @@ export default function App() {
                     <Slider 
                       size="medium"
                       max={2}
-                      onChange={(evt, value) => value && setFrequency(frequencyValues[value as number].label)}
+                      onChange={(evt, value) => value !== undefined && setFrequency(frequencyValues[value as number].label)}
                       value={frequencyValues.findIndex(option => option.label === frequency)}
                       marks={frequencyValues}
                     />
@@ -122,16 +127,18 @@ export default function App() {
                 </div>
 
                 <div className="dateInput">
-                <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DateTimePicker
-                    renderInput={(props) => <TextField {...props} />}
-                    label="DateTimePicker"
-                    value={moment(date)}
-                    onChange={(newDate) => {
-                      newDate && setDate(newDate.toDate());
-                    }}
-                  />
-                  </LocalizationProvider>
+                  <FormLabel>Date and Time:</FormLabel>
+                    <div className="datePickerContainer">
+                      <LocalizationProvider dateAdapter={AdapterMoment}>
+                        <DateTimePicker
+                            renderInput={(props) => <TextField {...props} />}
+                            value={moment(date)}
+                            onChange={(newDate) => {
+                              newDate && setDate(newDate.toDate());
+                            }}
+                          />
+                      </LocalizationProvider>
+                    </div>
                 </div>
                 <div className="positionInput">
                   <FormLabel>Position:</FormLabel>
