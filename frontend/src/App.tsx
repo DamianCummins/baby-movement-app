@@ -44,10 +44,9 @@ export default function App() {
   ];
 
   const [content, setContent] = useState<number>(0);
-  const [intensity, setIntensity] = useState<string>(intensityValues[0].label);
-  const [frequency, setFrequency] = useState<string>(frequencyValues[0].label);
-  const [type, setType] = useState<string>('');
-  const [position, setPosition] = useState<string>('');
+  const [intensity, setIntensity] = useState<string>(intensityValues[1].label);
+  const [type, setType] = useState<string>('kick');
+  const [position, setPosition] = useState<string>('middle centre');
   const [date, setDate] = useState<Date | null>(new Date());
 
   const theme = createTheme({
@@ -71,13 +70,11 @@ export default function App() {
         date: date ? date.toDateString() : now.toDateString(),
         time: date ? date.toTimeString() : now.toTimeString(),
         intensity,
-        frequency,
         type,
         position
       })
     });
     setIntensity(intensityValues[0].label);
-    setFrequency(frequencyValues[0].label);
     setType('');
     setPosition('');
     setDate(new Date());
@@ -100,19 +97,6 @@ export default function App() {
                       onChange={(evt, value) => value !== undefined && setIntensity(intensityValues[value as number].label)}
                       value={intensityValues.findIndex(option => option.label === intensity)}
                       marks={intensityValues}
-                    />
-                  </div>
-                </div>
-
-                <div className="sliderInput">
-                  <FormLabel>Frequency:</FormLabel>
-                  <div className='sliderContainer'>
-                    <Slider 
-                      size="medium"
-                      max={2}
-                      onChange={(evt, value) => value !== undefined && setFrequency(frequencyValues[value as number].label)}
-                      value={frequencyValues.findIndex(option => option.label === frequency)}
-                      marks={frequencyValues}
                     />
                   </div>
                 </div>

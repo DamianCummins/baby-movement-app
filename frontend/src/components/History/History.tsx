@@ -72,14 +72,14 @@ export default function History() {
       Object.values(json).map(rows => allRows = [...allRows,...rows]);
 
       const groupedByHour = allRows.reduce((acc: Record<string, Pick<Row, Exclude<keyof Row, Row['time']>>[]>, {time, intensity, type, position}: Row) => {
-        const hour = new Date(`1970-01-01T${time.substring(0,8)}Z`).getHours();
+        const hour = new Date(`1970-01-01T${time.substring(0,8)}Z`).getHours() - 1;
         (acc[`${hour}`] = acc[`${hour}`] || []).push({time, intensity, type, position});
         return acc;
       }, {});
     
       let hourCount = 0;
     
-      while (hourCount <= 24) {
+      while (hourCount < 24) {
         if (!Object.keys(groupedByHour).includes(`${hourCount}`)) {
           groupedByHour[`${hourCount}`] = [];
         }
@@ -93,14 +93,14 @@ export default function History() {
       if (today) {
         const [,todaysMovements] = today;
         const todayGroupedByHour = todaysMovements.reduce((acc: Record<string, Pick<Row, Exclude<keyof Row, Row['time']>>[]>, {time, intensity, type, position}: Row) => {
-          const hour = new Date(`1970-01-01T${time.substring(0,8)}Z`).getHours();
+          const hour = new Date(`1970-01-01T${time.substring(0,8)}Z`).getHours() - 1;
           (acc[`${hour}`] = acc[`${hour}`] || []).push({time, intensity, type, position});
           return acc;
         }, {});
       
         let hourCount = 0;
     
-        while (hourCount <= 24) {
+        while (hourCount < 24) {
           if (!Object.keys(todayGroupedByHour).includes(`${hourCount}`)) {
             todayGroupedByHour[`${hourCount}`] = [];
           }
@@ -140,7 +140,7 @@ export default function History() {
               <XAxis dataKey="name" angle={45} height={70}>
                 <Label value="Hours" offset={0} position="insideBottom" />
               </XAxis>
-              <YAxis width={50} label={{ value: 'Total Movements', angle: -90, position: 'insideLeft' }}/>
+              <YAxis width={50} label={{ value: 'Total Movements', angle: -90, position: 'insideLeft' }} allowDecimals={false}/>
               <Tooltip />
               <CartesianGrid strokeDasharray="3 3" />
               <Bar dataKey="count" barSize={30} fill="#8884d8" background={{ fill: '#eee' }}/>

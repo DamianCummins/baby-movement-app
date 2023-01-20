@@ -29,7 +29,7 @@ app.post('/api/v1/movement', async (req, res, next) => {
   await doc.loadInfo();
 
   const sheet = doc.sheetsByIndex[0];
-  const newRow = await sheet.addRow(data);
+  await sheet.addRow(data);
 
   return res.sendStatus(200);
 });
