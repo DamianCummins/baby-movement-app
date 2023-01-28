@@ -166,23 +166,23 @@ export default function History() {
     const locations = positions.map(position => {
       switch(position) {
         case 'high left':
-          return { x: 1, y: 61 }
+          return { x: 61, y: 1 }
         case 'high centre':
-          return { x: 31, y: 61 }
+          return { x: 31, y: 1 }
         case 'high right':
-          return { x: 61, y: 61 }
+          return { x: 1, y: 1 }
         case 'middle left':
-          return { x: 1, y: 31 }
+          return { x: 61, y: 31 }
         case 'middle centre':
           return { x: 31, y: 31 }
         case 'middle right':
-          return { x: 61, y: 31 }
+          return { x: 1, y: 31 }
         case 'low left':
-          return { x: 1, y: 1 }
+          return { x: 61, y: 61 }
         case 'low centre':
-          return { x: 31, y: 1 }
+          return { x: 31, y: 61 }
         case 'low right':
-          return { x: 61, y: 1 }
+          return { x: 1, y: 61 }
         default:
           return;
       }
@@ -226,23 +226,23 @@ export default function History() {
         const locations = hourData.positions?.map(position => {
           switch(position) {
             case 'high left':
-              return { x: 1, y: 61 }
+              return { x: 61, y: 1 }
             case 'high centre':
-              return { x: 31, y: 61 }
+              return { x: 31, y: 1 }
             case 'high right':
-              return { x: 61, y: 61 }
+              return { x: 1, y: 1 }
             case 'middle left':
-              return { x: 1, y: 31 }
+              return { x: 61, y: 31 }
             case 'middle centre':
               return { x: 31, y: 31 }
             case 'middle right':
-              return { x: 61, y: 31 }
+              return { x: 1, y: 31 }
             case 'low left':
-              return { x: 1, y: 1 }
+              return { x: 61, y: 61 }
             case 'low centre':
-              return { x: 31, y: 1 }
+              return { x: 31, y: 61 }
             case 'low right':
-              return { x: 61, y: 1 }
+              return { x: 1, y: 61 }
             default:
               return;
           }
@@ -268,7 +268,8 @@ export default function History() {
   }
 
   function ReferenceBands(props: any) {
-    const { fill, fillOpacity, index } = props;
+    const { fill, fillOpacity, index, x1, x2, y1, y2 } = props;
+    const loc = `${x1} ${x2} ${y1} ${y2}`;
     const topLeft = <g transform="translate(100,100)" stroke="white" strokeOpacity={0}>
       <path d={`M 56 56 L -80 56 A 156 -156 0 0 1 56 -80`} fill={fill} fillOpacity={fillOpacity}/>
     </g>;
@@ -285,14 +286,14 @@ export default function History() {
       <path d={`M 194 194 L 330 194 A 156 -156 0 0 1 194 330`} fill={fill} fillOpacity={fillOpacity}/>
     </g>
 
-    switch(index){
-      case "0":
+    switch(loc){
+      case "0 30 0 30":
         return topLeft;
-      case "2":
+      case "0 30 60 90":
         return topRight;
-      case "6":
+      case "60 90 0 30":
         return lowLeft;
-      case "8":
+      case "60 90 60 90":
         return lowRight;
       default:
         return topLeft;
@@ -324,14 +325,14 @@ export default function History() {
                         y1={sector.y1}
                         y2={sector.y2} 
                         fill="purple"
-                        fillOpacity={(sector.count / 100) * 1.2}
+                        fillOpacity={(sector.count / 100)}
                         stroke="white"
                         strokeOpacity={0}
                         shape={
                           rects.includes(index) ? undefined : <ReferenceBands 
                             index={`${index}`}
                             fill="purple"
-                            fillOpacity={(sector.count / 100) * 1.2}
+                            fillOpacity={(sector.count / 100)}
                             x1={sector.x1}
                             x2={sector.x2}
                             y1={sector.y1}
