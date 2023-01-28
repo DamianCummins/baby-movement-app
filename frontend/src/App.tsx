@@ -74,9 +74,9 @@ export default function App() {
         position
       })
     });
-    setIntensity(intensityValues[0].label);
-    setType('');
-    setPosition('');
+    setIntensity(intensityValues[1].label);
+    setType('kick');
+    setPosition('middle centre');
     setDate(new Date());
   }  
 
