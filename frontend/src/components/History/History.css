@@ -19,7 +19,7 @@ text {
     margin-bottom: 50px;
 }
 
-.bump {
+.bumpImage {
     background-image: url('../../img/belly.svg');
     background-size: contain;
     background-repeat: no-repeat;
